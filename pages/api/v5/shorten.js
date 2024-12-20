@@ -5,6 +5,8 @@ export default async function handler(req, res) {
   const urls = body.urls.trim()
   const password = body.password
   const urlsArray = urls.split(/[\n,]+/)
+  const apiKey = req.headers['x-api-key']
+  if(!apiKey || apiKey != process.env.API_KEY){res.status(418).send('you have not authenticated :('); return}
 
   const promises = urlsArray.map(async (url) => {
     if (url === '') return null

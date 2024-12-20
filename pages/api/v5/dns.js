@@ -1,6 +1,7 @@
 import dns from 'dns';
 
 export default async function handler(req, res) {
+  if(!apiKey || apiKey != process.env.API_KEY){res.status(418).send('you have not authenticated :('); return}
   const { domain } = req.query;
   const { address: ip } = await dns.promises.lookup(domain);
 
